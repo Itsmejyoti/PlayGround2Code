@@ -1,0 +1,21 @@
+<aura:component controller="ShowOppRelatedtoAccount" implements="force:appHostable,force:hasRecordId,flexipage:availableForAllPageTypes" >
+   <aura:attribute name="recordId" type="Id" />
+    <aura:attribute name="oppList" type="Opportunity[]" />
+     <aura:handler name="init" value="{!this}" action="{!c.doInit}" />   
+	<table class="slds-table slds-table--bordered slds-table--striped">
+        <thead>
+                <tr>
+                    <th scope="col"><span class="slds-truncate">Id</span></th>
+                    <th scope="col"><span class="slds-truncate">Name</span></th>                   
+                </tr>
+            </thead>
+        <tbody>
+            <aura:iteration items="{!v.oppList}" var="item">
+            <tr>
+                        <td>{!item.Id}</td>
+                        <td>{!item.Name}</td>
+                </tr>
+            </aura:iteration>
+        </tbody>
+    </table>
+</aura:component>

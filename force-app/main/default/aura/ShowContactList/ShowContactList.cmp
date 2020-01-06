@@ -1,0 +1,49 @@
+<aura:component controller="ShowContactController" implements="flexipage:availableForAllPageTypes" access="global" >
+    
+    <aura:attribute name="contactList" type="contact[]" />
+    <aura:attribute name="editConId" type="id"/>
+    <aura:attribute name="viewConId" type="id"/>
+    <aura:attribute name="isEdit" type="boolean"/>
+    <aura:attribute name="isView" type="boolean"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />   
+    
+    <div class="slds"> 
+        
+        <table class="slds-table slds-table--bordered slds-table--striped">
+            <thead>
+                <tr>
+                    <th scope="col"><span class="slds-truncate">Id</span></th>
+                    <th scope="col"><span class="slds-truncate">Name</span></th>
+                    <th scope="col"><span class="slds-truncate">Action</span></th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                <aura:iteration items="{!v.contactList}" var="item">
+                    
+                    <!-- <c:eachContactCard contactName="{!item.Name}" accountName="{!item.Account.Name}" email="{!item.Email}"  />-->
+                    
+                    <tr>
+                        <td>{!item.Id}</td>
+                        <td>{!item.Name}</td>
+                        <td>
+                            <button type="button" onclick="{!c.edit}" id="{!item.Id}">Edit</button>&nbsp;&nbsp;
+                            <button type="button" onclick="{!c.view}" id="{!item.Id}">View</button>&nbsp;&nbsp;
+                            <button type="button" onclick="{!c.delete}" id="{!item.Id}">Del</button>
+                        </td>
+                    </tr>
+                    <br/>
+                     
+                </aura:iteration>
+            </tbody>
+        </table>
+    </div>
+    <aura:renderIf isTrue="{!v.isEdit}">
+        <center><ui:button label="Save" press="{!c.save}"/></center>
+        <force:recordEdit aura:id="edit" recordId="{!v.editConId}"/>
+    </aura:renderIf>
+    
+   <aura:renderIf isTrue="{!v.isView}">
+        <force:recordView aura:id="view" recordId="{!v.viewConId}"/>
+    </aura:renderIf>
+</aura:component>
